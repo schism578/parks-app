@@ -11,28 +11,30 @@ function formatQueryParams(params) {
 }
 
 function displayResults(responseJson) {
-  console.log(responseJson);
-  $('#results-list').empty();
-  for (let i = 0; i < responseJson.length; i++){
-    $('#results-list').html(
-      `<li><h3>${responseJson.data[i].fullName}</h3>
-      <p>${responseJson.data[i].description}</p>
-      <p>${responseJson.data[i].addresses[0]}
-      <a href='${responseJson.data[i].url}'></a>
-      </li>`
-    )};
-  $('#results').removeClass('hidden');
-};
+    console.log(responseJson);
+    $('#results-list').empty();
+    let output = '';
+    for (let i = 0; i < responseJson.data.length; i++){
+      output +=
+        `<li><h3>${responseJson.data[i].fullName}</h3>
+        <p>${responseJson.data[i].description}</p>
+        <p>${responseJson.data[i].addresses[0]}</p>
+        <p>${responseJson.data[i].url}</p>
+        </li>`;
+    };
+    $('#results-list').append(output);
+    $('#results').removeClass('hidden');
+  };
 
 function getParkListings(query, limit=10) {
   const params = {
     api_key: 'v1mrZ48jVXxf7BJKILeAgKNQhzIw2aRDiReF5sIi',
     q: query,
     limit: '10',
-    fullName: "",
-    description: "",
-    addresses: "",
-    url: ""
+    fullName: '',
+    description: '',
+    addresses: '',
+    url: ''
   };
   const queryString = formatQueryParams(params)
   const url = searchURL + '?' + queryString;
