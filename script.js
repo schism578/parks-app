@@ -18,22 +18,24 @@ function displayResults(responseJson) {
       output +=
         `<li><h3>${responseJson.data[i].fullName}</h3>
         <p>${responseJson.data[i].description}</p>
-        <p>${responseJson.data[i].addresses[0]}</p>
-        <p>${responseJson.data[i].url}</p>
+        <p>${responseJson.data[i].addresses[0].line1} ${responseJson.data[i].addresses[0].line2}
+           ${responseJson.data[i].addresses[0].line3} ${responseJson.data[i].addresses[0].city}
+           ${responseJson.data[i].addresses[0].stateCode} ${responseJson.data[i].addresses[0].postalCode}</p>
+        <a href='${responseJson.data[i].url}'>For More Info</a>
         </li>`;
     };
     $('#results-list').append(output);
     $('#results').removeClass('hidden');
   };
 
-function getParkListings(query, limit=10) {
+function getParkListings(query) {
   const params = {
     api_key: 'v1mrZ48jVXxf7BJKILeAgKNQhzIw2aRDiReF5sIi',
     q: query,
     limit: '10',
     fullName: '',
     description: '',
-    addresses: '',
+    addresses: {},
     url: ''
   };
   const queryString = formatQueryParams(params)
