@@ -21,22 +21,18 @@ function displayResults(responseJson) {
         <p>${responseJson.data[i].addresses[0].line1} ${responseJson.data[i].addresses[0].line2}
            ${responseJson.data[i].addresses[0].line3} ${responseJson.data[i].addresses[0].city}
            ${responseJson.data[i].addresses[0].stateCode} ${responseJson.data[i].addresses[0].postalCode}</p>
-        <a href='${responseJson.data[i].url}'>For More Info</a>
+        <a href='${responseJson.data[i].url}' target="_blank">For More Info</a>
         </li>`;
     };
     $('#results-list').append(output);
     $('#results').removeClass('hidden');
   };
 
-function getParkListings(query) {
+function getParkListings(stateCode, limit) {
   const params = {
-    api_key: 'v1mrZ48jVXxf7BJKILeAgKNQhzIw2aRDiReF5sIi',
-    q: query,
-    limit: '10',
-    fullName: '',
-    description: '',
-    addresses: {},
-    url: ''
+    api_key,
+    stateCode,
+    limit
   };
   const queryString = formatQueryParams(params)
   const url = searchURL + '?' + queryString;
@@ -59,8 +55,8 @@ function getParkListings(query) {
 function handleParkListings() {
   $('form').submit(event => {
     event.preventDefault();
-    const searchTerm = $('#js-search-term').val();
-    const limit = $('#js-max-results').val();
+    const searchTerm = $('#search-term').val();
+    const limit = $('#results').val();
     getParkListings(searchTerm, limit);
   });
 }
