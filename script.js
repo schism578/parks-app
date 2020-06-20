@@ -25,7 +25,7 @@ function displayResults(responseJson) {
         </li>`;
     };
     $('#results-list').append(output);
-    $('#results').removeClass('hidden');
+    $('#search-results').removeClass('hidden');
   };
 
 function getParkListings(stateCode, limit) {
